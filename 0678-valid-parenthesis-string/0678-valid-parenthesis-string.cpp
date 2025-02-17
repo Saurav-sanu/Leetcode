@@ -1,37 +1,31 @@
 class Solution {
 public:
     bool checkValidString(string s) {
-        stack<int>st;
-        stack<int>starst;
-
+        int open=0;
+        int close=0;
+        int n=s.length();
         for(int i=0;i<s.length();i++){
-            if(s[i]=='('){
-                st.push(i);
-            }
-            else if(s[i]==')'){
-                if(!st.empty()){
-                    st.pop();
-                }
-                else if(!starst.empty()){
-                    starst.pop();
-                }
-                else{
-                    return false;
-                }
+            if(s[i]=='(' || s[i]=='*'){
+                open++;
             }
             else{
-                starst.push(i);
+                open--;
             }
-        }
-
-        //post prosssesing
-        while(!st.empty() && !starst.empty()){
-            if(st.top()>starst.top()){
+            if(open<0){
                 return false;
             }
-            st.pop();
-            starst.pop();
         }
-        return st.empty();
+        for(int i=n-1;i>=0;i--){
+            if(s[i]==')' || s[i]=='*'){
+                close++;
+            }
+            else{
+                close--;
+            }
+            if(close<0){
+                return false;
+            }
+        }
+        return true;
     }
 };
