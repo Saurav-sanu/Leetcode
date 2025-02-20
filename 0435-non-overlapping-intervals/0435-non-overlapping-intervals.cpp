@@ -1,33 +1,35 @@
 class Solution {
 public:
-    int eraseOverlapIntervals(vector<vector<int>>& intervals) {
-        sort(intervals.begin(),intervals.end());
-        int n=intervals.size();
-        vector<int>L=intervals[0];
-
-        int i=0;
+    int eraseOverlapIntervals(vector<vector<int>>& interval) {
         int count=0;
-        while(i<n){
-            int curr_start=intervals[i][0];
-            int curr_end=intervals[i][1];
+        sort(interval.begin(),interval.end());
+        int i=0;
+        int j=1;
+        int n=interval.size();
+        while(j<n){
+            int cs=interval[i][0];
+            int ce=interval[i][1];
 
-            int last_end= L[1];
-            int last_start=L[0];
-            if(last_end<=curr_start){
-                i++;
-                L=intervals[i];
+            int ns=interval[j][0];
+            int ne=interval[j][1];
+
+            //overlapping
+            if(ns>=ce){
+                i=j;
+
+                j++;
             }
-            else if(last_end>last_end){
+            else if(ce<=ne){
+                j++;
                 count++;
-                i++;
             }
-            else{
-                L=intervals[i];
-                i++;
+            else if(ce>ne){
+                i=j;
+                j++;
                 count++;
+
             }
         }
         return count;
-        
     }
 };
