@@ -1,33 +1,77 @@
 class Solution {
 public:
-    vector<vector<int>>adj;
-    vector<int>disFromBob;
-    int bobNode;
-    int dfs(int u,int par,int depth,vector<int>&amount){
-        int ret = 0;
-        if(u==bobNode) disFromBob[u] = 0;
-        else disFromBob[u] = amount.size();
-        int maxChild = -INT_MAX;
-        for(int v:adj[u]){
-            if(v==par)continue;
-            maxChild = max(maxChild,dfs(v,u,depth+1,amount));
-            disFromBob[u] = min(disFromBob[u],disFromBob[v]+1);
+    unordered_map<int,vector<int>>adjList;
+    unordered_map<int,int>BobMap;
+    int aliceAmount;
+
+
+    bool DFSBob(int curr,int t,vector<int>&visited){
+
+        visited[curr]=true;
+        BobMap[curr]=t;
+
+        if(curr==0){
+            return true;
         }
-        if(disFromBob[u]>depth)ret+=amount[u];
-        else if(disFromBob[u]==depth)ret+=amount[u]/2;
-        if(maxChild==-INT_MAX) return ret;
-        else return ret+maxChild;
+
+        for(auto & nbr:adjList[curr]){
+            if(!visited[nbr]){
+               if( DFSBob(nbr,t+1,visited)==true){
+                    return true;
+               }
+            }
+        }
+        BobMap.erase(curr);
+        return false;
+
+
     }
+
+    void DFSAlice(int curr,int t,int income,vector<int>&visited,vector<int>&amount){
+        visited[curr]=true;
+
+        if(BobMap.find(curr)==BobMap.end() || t<BobMap[curr]){
+            income+=amount[curr];
+        }
+        else if(t==BobMap[curr]){
+            income+=amount[curr]/2;
+        }
+
+        if(adjList[curr].size()==1){
+            aliceAmount=max(aliceAmount,income);
+        }
+
+        for(int &ngbr:adjList[curr]){
+            if(!visited[ngbr]){
+                DFSAlice(ngbr,t+1,income,visited,amount);
+            }
+        }
+
+    }
+
+
     int mostProfitablePath(vector<vector<int>>& edges, int bob, vector<int>& amount) {
-        int n = amount.size();
-        bobNode = bob;
-        adj.resize(n,vector<int>());
-        for(auto&e:edges){
-            adj[e[0]].push_back(e[1]);
-            adj[e[1]].push_back(e[0]);
+        int n=amount.size();
+        aliceAmount=INT_MIN;
+
+        int time=0;
+
+        
+        for(vector<int>&vec:edges){
+            int u=vec[0];
+            int v=vec[1];
+            adjList[u].push_back(v);
+            adjList[v].push_back(u);
         }
-        disFromBob.resize(n);
-        return dfs(0,0,0,amount);
+        vector<int>visited(n,false);
+        DFSBob(bob,time,visited);
+
+        int income=0;
+        visited.assign(n,false);
+
+        DFSAlice(0,0,income,visited,amount);
+
+        return aliceAmount;
+
     }
-    
 };
