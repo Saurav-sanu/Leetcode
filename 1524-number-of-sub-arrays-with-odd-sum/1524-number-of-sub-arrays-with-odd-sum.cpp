@@ -14,12 +14,12 @@ int MOD=1e9+7;
             prefSum[i]=arr[i]+prefSum[i-1];
         }
 
-        for(int i=0;i<n;i++){
+        for(int i=0;i<n;i++){//odd+even=odd
             if(prefSum[i]%2==0){
                 count=(count+oddcount)%MOD;
                 evencount++;
             }
-            else{
+            else{//even+odd=odd
                 count=(count+evencount)%MOD;
                 oddcount++;
             }
