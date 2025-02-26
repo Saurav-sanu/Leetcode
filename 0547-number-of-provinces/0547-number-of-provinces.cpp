@@ -1,11 +1,12 @@
 class Solution {
 public:
-void dfs(unordered_map<int,vector<int>>&adjList,vector<bool>&visited,int u){
+void dfs(vector<vector<int>>isConnected,vector<bool>&visited,int u){
     visited[u]=true;
+    int n=isConnected.size();
 
-    for(int &v:adjList[u]){
-        if(!visited[v]){
-            dfs(adjList,visited,v);
+    for(int v=0;v<n;v++){
+        if(!visited[v] && isConnected[u][v]==1){
+            dfs(isConnected,visited,v);
         }
     }
 }
@@ -13,20 +14,12 @@ void dfs(unordered_map<int,vector<int>>&adjList,vector<bool>&visited,int u){
         int n=isConnected.size();
         vector<bool>visited(n,false);
 
-        unordered_map<int,vector<int>>adjList;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
-                if(isConnected[i][j]==1){
-                    adjList[i].push_back(j);
-                    adjList[j].push_back(i);
-                }
-            }
-        }
+        
         int count=0;
 
         for(int i=0;i<n;i++){
             if(!visited[i]){
-                dfs(adjList,visited,i);
+                dfs(isConnected,visited,i);
                 count++;
             }
         }
