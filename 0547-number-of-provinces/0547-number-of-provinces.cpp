@@ -12,7 +12,8 @@ void bfs(vector<vector<int>>&isConnected,int u,vector<bool>&visited){
 
         for(int v=0;v<n;v++){
             if(!visited[v] && isConnected[u][v]==1){
-                bfs(isConnected,v,visited);
+               q.push(v);   // Push into queue instead of recursive call
+               visited[v] = true;
             }
         }
     }
