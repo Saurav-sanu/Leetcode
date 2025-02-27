@@ -28,6 +28,9 @@ int solve(int j,int k ,vector<int>&arr,unordered_map<int,int>&mp){
     }
 };
 
+here time is 0(n^3)
+space is 0(n)//recursion ka stack use ho rha hia isliye.
+
 
 
 //using memmoiszation 
