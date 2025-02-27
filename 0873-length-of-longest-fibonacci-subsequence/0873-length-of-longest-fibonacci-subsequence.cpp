@@ -33,7 +33,7 @@ space is 0(n)//recursion ka stack use ho rha hia isliye.
 
 
 
-//using memmoiszation 
+//using memoisation 
 time is o(n^2)
 space is 0(n) recusion stack ka space hai woh 
 
