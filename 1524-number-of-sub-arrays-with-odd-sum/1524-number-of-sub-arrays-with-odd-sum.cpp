@@ -9,9 +9,9 @@ int MOD=1e9+7;
         int n=arr.size();
         int sum=0;
 
-        for(int i=0;i<n;i++){//odd+even=odd
+        for(int i=0;i<n;i++){
             sum+=arr[i];
-            if(sum[i]%2==0){
+            if(sum%2==0){//odd+even=odd
                 count=(count+oddcount)%MOD;
                 evencount++;
             }
