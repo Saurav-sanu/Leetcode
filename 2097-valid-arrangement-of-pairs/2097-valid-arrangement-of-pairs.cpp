@@ -1,32 +1,37 @@
 class Solution {
 public:
     vector<vector<int>> validArrangement(vector<vector<int>>& pairs) {
-        unordered_map<int,vector<int>>adj;
+
         unordered_map<int,int>indegree,outdegree;
-        for(auto &edge:pairs){
-            int u=edge[0];
-            int v=edge[1];
+        unordered_map<int,vector<int>>adj;
+        stack<int>st;
+
+        for(auto &temp:pairs){
+            int u=temp[0];
+            int v=temp[1];
 
             adj[u].push_back(v);
-            outdegree[u]++;
-            indegree[v]++;
-        }
-        int startNode=pairs[0][0];
 
+            indegree[v]++;
+            outdegree[u]++;
+        }
+
+        int startnode=pairs[0][0];
         for(auto &it:adj){
             int node=it.first;
             if((outdegree[node]-indegree[node])==1){
-                startNode=node;
+                startnode=node;
                 break;
             }
         }
+
         vector<int>Eulerpath;
-        stack<int>st;
-        st.push(startNode);
+
+        st.push(startnode);
 
         while(!st.empty()){
-            auto curr=st.top();
-            
+            int curr=st.top();
+
             if(!adj[curr].empty()){
                 int ngbr=adj[curr].back();
                 adj[curr].pop_back();
@@ -36,15 +41,15 @@ public:
                 Eulerpath.push_back(curr);
                 st.pop();
             }
-
-
         }
-        //building the reulrt
+
+        //building the path
         reverse(Eulerpath.begin(),Eulerpath.end());
         vector<vector<int>>ans;
         for(int i=0;i<Eulerpath.size()-1;i++){
             ans.push_back({Eulerpath[i],Eulerpath[i+1]});
         }
+
         return ans;
     }
 };
