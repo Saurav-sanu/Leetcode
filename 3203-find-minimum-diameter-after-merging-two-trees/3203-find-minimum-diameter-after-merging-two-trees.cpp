@@ -1,49 +1,60 @@
 class Solution {
 public:
 
-pair<int,int>BFS(unordered_map<int,vector<int>>&adj,int source){
+pair<int,int>BFS(unordered_map<int,vector<int>>adj,int source){
     queue<int>q;
     q.push(source);
-
     unordered_map<int,bool>visited;
     visited[source]=true;
     int distance=0;
-
     int farthestNode=source;
+
     while(!q.empty()){
         int size=q.size();
+
         while(size--){
-            int curr=q.front();
+            int node=q.front();
+
             q.pop();
 
-            farthestNode=curr;
-            for(auto &nbr:adj[curr]){
-                if(visited[nbr]==false){
-                    visited[nbr]=true;
-                    q.push(nbr);
+            farthestNode=node;
+
+            for(auto &ngr:adj[node]){
+                if(visited[ngr]==false){
+                    q.push(ngr);
+                    visited[ngr]=true;
                 }
             }
         }
+
         if(!q.empty()){
             distance++;
         }
     }
+
     return {farthestNode,distance};
 }
-int findDiameter(unordered_map<int,vector<int>>adj){
-    //step 1 farthest node from 0
-    auto[farthestNode,dist]=BFS(adj,0);
 
-    //step 2
+int findDiameter(unordered_map<int,vector<int>>adj){
+    //step 1:to find the one of the diameter from any random node // we have assume 0 as reandom node here
+    auto[farthestNode,distance]=BFS(adj,0);
+
+    //step2 :to find other node of the diameter from the the other node of diameter
+
     auto[otherNode,diameter]=BFS(adj,farthestNode);
 
+    //finding diamter from these two node using BFS 
+    
     return diameter;
 }
-    unordered_map<int,vector<int>>buildAdj(vector<vector<int>>&edges){
+
+
+    unordered_map<int,vector<int>>buildAdj(vector<vector<int>>& edges){
         unordered_map<int,vector<int>>adj;
-        for(auto edge:edges){
-            int u=edge[0];
-            int v=edge[1];
+        for(auto vec:edges){
+            int u=vec[0];
+            int v=vec[1];
+
             adj[u].push_back(v);
             adj[v].push_back(u);
         }
@@ -56,7 +67,7 @@ int findDiameter(unordered_map<int,vector<int>>adj){
         int d1=findDiameter(adj1);
         int d2=findDiameter(adj2);
 
-        int combined=(d1+1)/2 + (d2+1)/2 + 1;
+        int combined=(d1+1)/2+(d2+1)/2+1;
 
         return max({d1,d2,combined});
     }
