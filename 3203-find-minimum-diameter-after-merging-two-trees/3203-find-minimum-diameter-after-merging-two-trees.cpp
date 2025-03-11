@@ -36,14 +36,9 @@ pair<int,int>BFS(unordered_map<int,vector<int>>adj,int source){
 }
 
 int findDiameter(unordered_map<int,vector<int>>adj){
-    //step 1:to find the one of the diameter from any random node // we have assume 0 as reandom node here
     auto[farthestNode,distance]=BFS(adj,0);
 
-    //step2 :to find other node of the diameter from the the other node of diameter
-
     auto[otherNode,diameter]=BFS(adj,farthestNode);
-
-    //finding diamter from these two node using BFS 
     
     return diameter;
 }
