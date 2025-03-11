@@ -1,69 +1,55 @@
 class Solution {
 public:
-bool isSafe(int newX,int newY,vector<vector<int>>temp){
-    if(newX>=0 && newY>=0 && newX<temp.size() && newY <temp[0].size() && temp[newX][newY]==1){
-        return true;
-    }
-    else{
-        return false;
-    }
-}
+typedef pair<int,int>P;
+vector<vector<int>>direction={{0,1},{1,0},{-1,0},{0,-1}};
     int orangesRotting(vector<vector<int>>& grid) {
-        //pair<int,int>->corrdinated
-        //second member->int ->time
-        queue<pair<pair<int,int>,int>>q;
-        vector<vector<int>>temp=grid;
-        int minTime=0;
+        int m=grid.size();
+        int n=grid[0].size();
+        queue<P>q;
+        int freshOranges=0;
+        int minutes=0;
 
-        //FIND ALL ROTTEN ORANGES AND PUTH THEN IN QUEUE
-        int n=grid.size();
-        int m=grid[0].size();
-
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(temp[i][j]==2){
-                    //src node ka time 0 set krna hai
-
-                    q.push({{i,j},0});
-
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(grid[i][j]==2){
+                    q.push({i,j});
+                }
+                else if(grid[i][j]==1){
+                    freshOranges++;
                 }
             }
         }
+        if(freshOranges==0){
+            return 0;
+        }
+
         while(!q.empty()){
-            auto frontNodePair=q.front();
-            q.pop();
-            
-            auto frontNodeCoordinates=frontNodePair.first;
-            int frontNodeTime=frontNodePair.second;
-            int tempX=frontNodeCoordinates.first;
-            int tempY=frontNodeCoordinates.second;
+            int size=q.size();
 
-            int dx[]={-1,0,1,0};
-            int dy[]={0,1,0,-1};
-            for(int i=0;i<4;i++){
-                int newX=dx[i]+tempX;
-                int newY=dy[i]+tempY;
+            while(size--){
+                auto node=q.front();
+                q.pop();
 
-                if(isSafe(newX,newY,temp)){
-                    q.push({{newX,newY},frontNodeTime+1});
-                    minTime=max(minTime,frontNodeTime+1);
-                    //make this node as rotten
-                    temp[newX][newY]=2;
+                int x_corr=node.first;
+                int y_corr=node.second;
+
+                for(auto dir:direction){
+                    int new_x=dir[0]+x_corr;
+                    int new_y=dir[1]+y_corr;
+
+                    if(new_x>=0 && new_y>=0 && new_x<m && new_y<n && grid[new_x][new_y]==1){
+                        grid[new_x][new_y]=2;
+                        q.push({new_x,new_y});
+                        freshOranges--;
+                    }
+
                 }
+
             }
+            minutes++;
 
         }
-        //yah tak rotten kar diya hai
-        //ab i want to check k kya maine saare orange rotten kar diye hai
-        int freshOrangeCount=0;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(temp[i][j]==1){
-                    return -1;
-                }
-            }
-        }
-       return minTime;
+        return freshOranges==0?minutes-1:-1;
 
     }
 };
