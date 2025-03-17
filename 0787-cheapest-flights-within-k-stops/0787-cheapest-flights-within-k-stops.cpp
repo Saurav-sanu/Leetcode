@@ -1,5 +1,8 @@
 class Solution {
 public:
+
+//done using bfs 
+// whenever shortest path question arrive try to thing upon bfs 
     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
         vector<int>distance(n,INT_MAX);
         unordered_map<int,vector<pair<int,int>>>adj(n);
