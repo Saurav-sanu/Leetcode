@@ -1,8 +1,9 @@
 class Solution {
 public:
+
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
         //solving using bfs and dikstra 
-        //dikstra is kind of bfs as similar approiach is follwing in bfs and dikstra
+        //dikstra is kind of bfs as similar approiach is following in bfs and dikstra
         vector<int>result(n+1,INT_MAX);
         unordered_map<int,vector<pair<int,int>>>adj;
         for(auto edge:times){
