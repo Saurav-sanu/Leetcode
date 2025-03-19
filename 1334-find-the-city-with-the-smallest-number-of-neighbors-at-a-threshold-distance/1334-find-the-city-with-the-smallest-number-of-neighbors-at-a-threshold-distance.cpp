@@ -3,32 +3,24 @@ public:
 
 //using dikstra 
 typedef pair<int,int>P;
-void dikstra(unordered_map<int,vector<pair<int,int>>>&adj,int source,vector<int>&result){
-    priority_queue<P,vector<P>,greater<P>>q;
-    q.push({0,source});
-    result[source]=0;
+void bellmon(int n,vector<vector<int>>& edges,int source,vector<int>&result){
     fill(result.begin(),result.end(),INT_MAX);
+    result[source]=0;
 
-    while(!q.empty()){
-        auto top_el=q.top();
-        q.pop();
+    for(int count=1;count<n;count++){
+        for(auto &edge:edges){
+            int u=edge[0];
+            int v=edge[1];
+            int wt=edge[2];
 
-        int dist=top_el.first;
-        int nd=top_el.second;
-
-        for(auto vec:adj[nd]){
-            int wt=vec.second;
-            int node=vec.first;
-
-            if(dist+wt<result[node]){
-                result[node]=dist+wt;
-                q.push({result[node],node});
+            if(result[u]!=INT_MAX && result[u]+wt<result[v]){
+                result[v]=result[u]+wt;
+            }
+            if(result[v]!=INT_MAX && result[v]+wt<result[u]){
+                result[u]=result[v]+wt;
             }
         }
-
     }
-
-
 }
 int shortestNeighbour(int n,vector<vector<int>>&VECTOR,int distanceThreshold){
     int city=-1;
@@ -55,15 +47,15 @@ int shortestNeighbour(int n,vector<vector<int>>&VECTOR,int distanceThreshold){
             int v=vec[1];
             int wt=vec[2];
 
-            adj[u].push_back({v,wt});
-            adj[v].push_back({u,wt});
+            VECTOR[u][v]=wt;
+            VECTOR[v][u]=wt;
         }
         for(int i=0;i<n;i++){
             VECTOR[i][i]=0;
         }
 
         for(int i=0;i<n;i++){
-            dikstra(adj,i,VECTOR[i]);
+            bellmon(n,edges,i,VECTOR[i]);
         }
         return shortestNeighbour(n,VECTOR,distanceThreshold);
 
