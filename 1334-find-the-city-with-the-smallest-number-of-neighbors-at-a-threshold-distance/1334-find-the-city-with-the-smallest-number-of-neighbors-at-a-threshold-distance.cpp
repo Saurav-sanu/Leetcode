@@ -6,8 +6,8 @@ typedef pair<int,int>P;
 void dikstra(unordered_map<int,vector<pair<int,int>>>&adj,int source,vector<int>&result){
     priority_queue<P,vector<P>,greater<P>>q;
     q.push({0,source});
-    fill(result.begin(),result.end(),INT_MAX);
     result[source]=0;
+    fill(result.begin(),result.end(),INT_MAX);
 
     while(!q.empty()){
         auto top_el=q.top();
