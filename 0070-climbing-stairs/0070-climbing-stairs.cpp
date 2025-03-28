@@ -2,9 +2,9 @@ class Solution {
 public:
 //using bottom up
     int climbStairs(int n) {
-        if(n==0 ||n==1 ||n ==2){
-            return n;
-        }
+        // if(n==0 ||n==1 ||n ==2){
+        //     return n;
+        // }
         vector<int>t(n+1);
         t[0]=0;
         t[1]=1;
