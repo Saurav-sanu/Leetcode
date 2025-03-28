@@ -1,21 +1,24 @@
 class Solution {
 public:
-int solveusingrecursion(int n,vector<int>&dp){
-    //bse acase
-    if(n==1)return 1;
-    if(n==2)return 2;
+int solve(int n,vector<int>&dp)
+{
+    if(n==0){
+        return 1;
+    }
+    if(n<0){
+        return 0;
+    }
 
     if(dp[n]!=-1){
         return dp[n];
     }
+    int oneStep=solve(n-1,dp);
+    int twoStep=solve(n-2,dp);
 
-
-    int ans=solveusingrecursion(n-1,dp)+solveusingrecursion(n-2,dp);
-    return dp[n]=ans;
+    return dp[n]=oneStep+twoStep;
 }
     int climbStairs(int n) {
         vector<int>dp(n+1,-1);
-        int ans=solveusingrecursion(n,dp);
-        return ans;
+        return solve(n,dp);
     }
 };
