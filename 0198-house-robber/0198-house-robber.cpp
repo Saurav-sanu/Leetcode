@@ -1,22 +1,27 @@
 class Solution {
 public:
-int t[101];
-int solve(vector<int>&nums,int index){
-    //base case
-    if(index>=nums.size()){
-        return 0;
-    }
-    if(t[index]!=-1){
-        return t[index];
-    }
-
-    int include=solve(nums,index+2)+nums[index];
-    int exclude=solve(nums,index+1);
-
-    return t[index]=max(include,exclude);
-}
     int rob(vector<int>& nums) {
-        memset(t,-1,sizeof(t));
-        return solve(nums,0);
+       
+
+        //using space optimisation
+        int n=nums.size();
+        vector<int>t(n+1,0);
+
+        int prevprev=0;
+        int prev=nums[0];
+
+        for(int i=2;i<=n;i++){
+            int skip=prev;
+            int take=nums[i-1]+prevprev;
+
+            int temp=max(skip,take);
+
+            prevprev=prev;
+            prev=temp;
+        }
+
+        return prev;
+
+
     }
 };
