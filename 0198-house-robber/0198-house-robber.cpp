@@ -27,7 +27,7 @@ public:
 };
 
 
-//uisng space optimisatoin\
+//uisng space optimisatoin
 class Solution {
 public:
     int rob(vector<int>& nums) {
