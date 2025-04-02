@@ -1,4 +1,3 @@
-//using top down approach
 class Solution {
 public:
 int t[101];
@@ -31,51 +30,5 @@ int solve(vector<int>&nums,int index,int n){
         int taking1th_house=solve(nums,1,n-1);
 
         return max(taking0th_house,taking1th_house);
-    }
-};
-
-
-
-//using bottom up appraoch
-
-class Solution {
-public:
-    int rob(vector<int>& nums) {
-        //using bottom up
-        int n=nums.size();
-        vector<int>t(n+1,-1);
-
-        if(n==1){
-            return nums[0];
-        }
-
-        //case 1
-        t[0]=0;
-
-        for(int i=1;i<=n-1;i++){
-            int take=nums[i-1]+(i-2>=0?t[i-2]:0);
-            int skip=t[i-1];
-
-            t[i]=max(skip,take);
-
-        }
-        int result1=t[n-1];
-
-        t.clear();
-
-        // case 2
-        t[0]=0;
-        t[1]=0;
-
-        for(int i=2;i<=n;i++){
-            int take=nums[i-1]+(i-2>=0?t[i-2]:0);
-            int skip=t[i-1];
-            t[i]=max(skip,take);
-
-        }
-        int result2=t[n];
-
-        return max(result1,result2);
-
     }
 };
