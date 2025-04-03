@@ -1,33 +1,21 @@
 class Solution {
 public:
-int solve(int prev,int index,vector<int>&nums,vector<vector<int>>&dp){
-    //base case
-    if(index>=nums.size()){
-        return 0;
-    }
-    
-    if(prev!=-1 && dp[index][prev]!=-1){
-        return dp[index][prev];
-    }
-
-
-    int take=0;
-    if(prev==-1 || nums[index]>nums[prev]){
-
-        take=1+solve(index,index+1,nums,dp);
-    }
-    int skip=solve(prev,index+1,nums,dp);
-
-    if(prev!=-1){
-        dp[index][prev]=max(take,skip);
-    }
-
-    return max(take,skip);
-
-}
     int lengthOfLIS(vector<int>& nums) {
+        //using bootom up appracoh
         int n=nums.size();
-        vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
-        return solve(-1,0,nums,dp);
+        vector<int>t(n,1);
+
+        int maxLis=1;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<i;j++){
+                if(nums[j]<nums[i]){
+                    t[i]=max(t[i],t[j]+1);
+                    maxLis=max(maxLis,t[i]);
+
+                }
+            }
+        }
+        return maxLis;
+
     }
 };
