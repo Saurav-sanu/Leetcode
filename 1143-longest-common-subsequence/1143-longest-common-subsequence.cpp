@@ -30,7 +30,7 @@ int solve(int index1,int index2,string &s1,string &s2){
     }
 };
 
-//using bottom up approcah
+//using bottom up approach
 class Solution {
 public:
     int longestCommonSubsequence(string s1, string s2) {
