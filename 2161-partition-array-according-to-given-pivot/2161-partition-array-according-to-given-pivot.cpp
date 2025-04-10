@@ -39,7 +39,7 @@ public:
 };
 
 
-approach 2 or another way of writing
+// approach 2 or another way of writing
 
 //
 class Solution {
