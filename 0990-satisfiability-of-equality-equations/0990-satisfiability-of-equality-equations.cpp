@@ -33,6 +33,7 @@ void Union(int x,int y){
     }
 
 }
+
     bool equationsPossible(vector<string>& equations) {
         rankA.resize(26,0);
         parent.resize(26);
