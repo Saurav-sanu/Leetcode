@@ -13,7 +13,7 @@ bool solve(string &s,int i,int j){
         return t[i][j]=solve(s,i+1,j-1);
     }
 
-    return t[i][j]=false;
+    return false;
 }
     string longestPalindrome(string s) {
         int n=s.length();
