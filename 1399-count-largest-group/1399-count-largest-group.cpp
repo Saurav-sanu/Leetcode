@@ -24,6 +24,7 @@ int findDigitSum(int num){
                 count=1;
             }
         }
+        
         return count;
 
     }
