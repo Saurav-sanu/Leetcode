@@ -18,7 +18,6 @@ public:
                 mp[s[i]]=false;
                 i++;
             }
-           
 
         }
         return maxi;
