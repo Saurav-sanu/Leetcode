@@ -20,19 +20,19 @@ void solve(int n,vector<string>&board,vector<vector<string>>&ans,int row){
             continue;
         }
 
-        board[row][col]='Q';
         cols.insert(col);
         diagonals.insert(diagonalconst);
         antidiagonals.insert(antidiagonalconst);
+        board[row][col]='Q';
 
 
 
         solve(n,board,ans,row+1);
 
-        board[row][col]='.';
         cols.erase(col);
         diagonals.erase(diagonalconst);
         antidiagonals.erase(antidiagonalconst);
+        board[row][col]='.';
 
     }
 }
