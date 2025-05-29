@@ -1,32 +1,26 @@
 class Solution {
 public:
 int t[201][1001];
-int solve(int index,int target,vector<int>&nums){
-    //base case
-    if(index>=nums.size() || target<0){
-        return 0;
-    }
+int solve(vector<int>&nums,int target,int idx){
     if(target==0){
         return 1;
+
     }
-    if(t[index][target]!=-1){
-        return t[index][target];
+    if(idx>=nums.size() || target<0){
+        return 0;
     }
-     
-    // int include=solve(0,target-nums[index],nums);
-    // int exclude=solve(index+1,target,nums);
-    // return t[index][target]=include+exclude;
-    int result=0;
-    for(int i=index;i<nums.size();i++){
-        int take_i=solve(0,target-nums[i],nums);
-        result+=take_i;
+    if(t[idx][target]!=-1){
+        return t[idx][target];
     }
 
-    return t[index][target]=result;
-    
+    int take=solve(nums,target-nums[idx],0);
+    int nottake=solve(nums,target,idx+1);
+    return t[idx][target]=take+nottake;
 }
+
     int combinationSum4(vector<int>& nums, int target) {
         memset(t,-1,sizeof(t));
-        return solve(0,target,nums);
+        return solve(nums,target,0);
+
     }
 };
