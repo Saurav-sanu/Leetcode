@@ -1,50 +1,37 @@
 class Solution {
 public:
-void solve(string &s,int i, vector<string>&partition,vector<vector<bool>>&t,vector<vector<string>>&result){
+vector<vector<string>>result;
+vector<string>curr;
+bool isPalindrome(int i,int j,string &s){
+    while(i<=j){
+        if(s[i]==s[j]){
+            i++;
+            j--;
+        }
+        else{
+            return false;
+        }
 
+    }
+    return true;
+}
+void solve(string s,int idx){
     //base case
-    if(i==s.length()){
-        result.push_back(partition);
-        return ;
+    if(idx==s.length()){
+        result.push_back(curr);
     }
 
-    for(int j=i;j<s.length();j++){
-        if(t[i][j]==true){
-            partition.push_back(s.substr(i,j-i+1));
-            solve(s,j+1,partition,t,result);
-            partition.pop_back();
+    for(int i=idx;i<s.length();i++){
+        if(isPalindrome(idx,i,s)){
+            curr.push_back(s.substr(idx,i-idx+1));
+            solve(s,i+1);
+            curr.pop_back();
         }
     }
-
 
 }
     vector<vector<string>> partition(string s) {
-        //using blueprint of palindrome 
-        int n=s.length();
-        vector<vector<bool>>t(n,vector<bool>(n,false));
-        for(int i=0;i<n;i++){
-            t[i][i]=true;
-        }
-
-        for(int l=2;l<=n;l++){
-            for(int i=0;i+l-1<n;i++){
-                int j=i+l-1;
-                if(s[i]==s[j]){
-                    if(l==2){
-                        t[i][j]=true;
-                    }
-                    else{
-                        t[i][j]=t[i+1][j-1];
-                    }
-                }
-            }
-        }
-
-        vector<vector<string>>result;
-        vector<string>partition;
-        solve(s,0,partition,t,result);
-
+        solve(s,0);
         return result;
-
     }
 };
