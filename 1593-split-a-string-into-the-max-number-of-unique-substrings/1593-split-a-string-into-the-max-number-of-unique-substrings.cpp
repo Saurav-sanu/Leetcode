@@ -4,7 +4,7 @@ unordered_set<string>st;
 void solve(string s,int i,int currCount,int &maxCount){
     //base case
     //pronuing
-    if(currCount+(s.length()-1)<maxCount){
+    if(currCount+(s.length()-i)<maxCount){
         return;
     }
     if(i==s.length()){
