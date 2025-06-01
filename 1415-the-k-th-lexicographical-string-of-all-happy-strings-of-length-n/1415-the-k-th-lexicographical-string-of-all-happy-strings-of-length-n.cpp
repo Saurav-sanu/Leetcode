@@ -8,8 +8,6 @@ void solve(int n,int k,string &curr,string &result,int &count){
             result=curr;
         }
         return ;
-
-
     }
 
     for(char ch='a';ch<='c';ch++){
