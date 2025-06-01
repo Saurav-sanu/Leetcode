@@ -1,36 +1,34 @@
 class Solution {
 public:
-void solve(string &curr,string &result,int &count,int n,int &k){
-    //base case
+void solve(int n,int k,string &curr,string &result,int &count){
+    //base ase
     if(curr.length()==n){
         count++;
         if(count==k){
             result=curr;
         }
-        return;
+        return ;
+
+
     }
 
     for(char ch='a';ch<='c';ch++){
-        if(!curr.empty() && curr.back()==ch){
+        if(!curr.empty() && ch==curr.back()){
             continue;
         }
 
         curr.push_back(ch);
-        solve(curr,result,count,n,k);
+
+        solve(n,k,curr,result,count);
         curr.pop_back();
     }
-
-
+    
 }
     string getHappyString(int n, int k) {
-        //using backtracking
-
         string result="";
         string curr="";
         int count=0;
-
-        solve(curr,result,count,n,k);
+        solve(n,k,curr,result,count);
         return result;
-        
     }
 };
