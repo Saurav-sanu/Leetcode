@@ -25,3 +25,35 @@ void solve(string tiles,string &str,unordered_set<string>&result,vector<bool>&us
         return result.size()-1;
     }
 };
+
+//APPROACH 2
+class Solution {
+public:
+int n;
+int count=0;
+void solve(vector<int>&freq){
+    count++;
+
+    for(int i=0;i<26;i++){
+        if(freq[i]==0){
+            continue;
+        }
+
+        freq[i]--;
+        solve(freq);
+        freq[i]++;
+    }
+}
+    int numTilePossibilities(string tiles) {
+        n=tiles.size();
+        // count=0;
+        vector<int>freq(26,0);
+        for(auto &ch:tiles){
+            freq[ch-'A']++;
+        }
+
+        solve(freq);
+        return count-1;
+
+    }
+};
