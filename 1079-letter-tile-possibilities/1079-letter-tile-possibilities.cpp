@@ -1,28 +1,27 @@
 class Solution {
 public:
-int solve(vector<int>&freq){
-    int ans=0;
-    //hr dabbe mai a se z insert 
-    for(int i=0;i<26;i++){
-        //ek ans aa gya
-        if(freq[i]!=0){
-            ans++;
-            freq[i]--;
-            //baki recursion
-        int recursionkaans= solve(freq);
-        ans+=recursionkaans;
-        freq[i]++;
+void solve(string tiles,string &str,unordered_set<string>&result,vector<bool>&used){
+    //base acse
+   
+    result.insert(str);
+
+    for(int j=0;j<tiles.size();j++){
+        if(used[j]){
+            continue;
         }
+        used[j]=true;
+        str.push_back(tiles[j]);
+        solve(tiles,str,result,used);
+
+        used[j]=false;
+        str.pop_back();
     }
-    return ans;
 }
     int numTilePossibilities(string tiles) {
-        vector<int>freq(26,0);
-        for(auto ch:tiles){
-            freq[ch-'A']++;
-        }
-        int ans=solve(freq);
-        return ans;
-
+        unordered_set<string>result;
+        vector<bool>used(tiles.size(),false);
+        string str="";
+        solve(tiles,str,result,used);
+        return result.size()-1;
     }
 };
