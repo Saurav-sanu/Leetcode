@@ -49,19 +49,19 @@ void findcharWord(vector<vector<char>>& board,int i,int j,trieNode* &root){
     }
       char ch = board[i][j];
 
-     trieNode* nextNode = root->children[ch - 'a']; // \U0001f504 Changed: use temporary pointer
+     trieNode* nextNode = root->children[ch - 'a']; 
 
         if (nextNode->endofWord == true) {
             result.push_back(nextNode->word);
-            nextNode->endofWord = false; // prevent duplicates
+            nextNode->endofWord = false; 
         }
 
-        board[i][j] = '$'; // mark visited
+        board[i][j] = '$'; 
 
         for (auto& dir : direction) {
             int new_i = i + dir[0];
             int new_j = j + dir[1];
-            findcharWord(board, new_i, new_j, nextNode); // \U0001f504 Changed: pass nextNode instead of root
+            findcharWord(board, new_i, new_j, nextNode); 
         }
 
         board[i][j] = ch; 
