@@ -41,3 +41,9 @@ public:
         return count;
     }
 };
+
+
+//aprahc 4
+using __builtin_popcount
+
+just return __builtin_popcount(n);
