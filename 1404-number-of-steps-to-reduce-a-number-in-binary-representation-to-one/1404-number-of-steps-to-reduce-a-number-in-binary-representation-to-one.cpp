@@ -33,3 +33,24 @@ void addone(string &s){
         return op;
     }
 };
+
+
+class Solution {
+public:
+    int numSteps(string s) {
+        //approach 2
+        int op=0;
+        int n=s.length();
+        int carry=0;
+        for(int i=n-1;i>=1;i--){
+            if(((s[i]-'0')+carry)%2==1){//odd
+                op+=2;
+                carry=1;
+            }
+            else{
+                op++;
+            }
+        }
+        return op+carry;
+    }
+};
