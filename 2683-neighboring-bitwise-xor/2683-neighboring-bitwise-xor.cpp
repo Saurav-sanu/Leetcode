@@ -27,3 +27,20 @@ public:
 
     }
 };
+
+
+class Solution {
+public:
+    bool doesValidArrayExist(vector<int>& derived) {
+        //approach 2
+        //best approach
+        int xxor=0;
+        for(int i=0;i<derived.size();i++){
+            xxor^=derived[i];
+        }
+        if(xxor==0){
+            return true;
+        }
+        return false;
+    }
+};
