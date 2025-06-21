@@ -4,24 +4,20 @@ public:
         int m=nums1.size();
         int n=nums2.size();
 
-        unordered_map<int,long >mp;
-        for(auto &num:nums1){
-            mp[num]+=n;
-        }
-        for(auto &num:nums2){
-            mp[num]+=m;
-        }
+        int XOR=0;
 
-        int result=0;
-        for(auto &it:mp){
-            int num=it.first;
-            int freq=it.second;
-
-            if(freq%2!=0){
-                result^=num;
+        if(m%2!=0){
+            for(auto &num:nums2){
+                XOR^=num;
             }
         }
-        return result;
+        if(n%2!=0){
+            for(auto &num:nums1){
+                XOR^=num;
+            }
+        }
+
+        return XOR;
 
 
     }
