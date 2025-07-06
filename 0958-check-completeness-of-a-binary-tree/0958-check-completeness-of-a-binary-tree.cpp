@@ -11,7 +11,8 @@
  */
 class Solution {
 public:
-bool levelOrderTraversal(TreeNode* root){
+bool level(TreeNode* root){
+    //bvase case
     queue<TreeNode*>q;
     q.push(root);
     bool nullFound=false;
@@ -26,13 +27,13 @@ bool levelOrderTraversal(TreeNode* root){
             if(nullFound){
                 return false;
             }
-                q.push(front->left);
-                q.push(front->right);
+            q.push(front->left);
+            q.push(front->right);
         }
     }
     return true;
 }
     bool isCompleteTree(TreeNode* root) {
-        return levelOrderTraversal(root);
+        return level(root);
     }
 };
