@@ -38,29 +38,29 @@ ListNode* reverse(ListNode* head,int k){
         ListNode* newHead=head;
         while(curr!=NULL){
             ListNode* kth=kthNode(curr,k);
+
             if(kth==NULL){
                 if(prev){
                     prev->next=curr;
                     break;
                 }
             }
-           ListNode* nextNode=kth->next;
-           kth->next=NULL;
-           ListNode* rev=reverse(curr,k);
-        
-       
+            ListNode* newNode=kth->next;
+            kth->next=NULL;
+            ListNode* rev=reverse(curr,k);
 
- if (!prev) {
-            newHead = rev;
-        } else {
-            prev->next = rev;
-        }
+            if(!prev){
+                newHead=rev;
+            }
+            else{
+                prev->next=rev;
 
-        prev = curr; // after reversal, curr is now tail
-        curr = nextNode;
+            }
+
+            prev=curr;
+            curr=newNode;
 
         }
         return newHead;
-      
     }
 };
