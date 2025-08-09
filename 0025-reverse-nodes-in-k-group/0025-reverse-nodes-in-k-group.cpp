@@ -10,44 +10,57 @@
  */
 class Solution {
 public:
- int getLength(ListNode* head) {
-        ListNode* temp = head;
-        int len = 0;
-        while(temp != NULL) {
-            len++;
-            temp = temp->next;
-        }
-        return len;
+ListNode* kthNode(ListNode* head,int k){
+    ListNode* temp=head;
+    k--;
+    while(temp!=NULL && k--){
+        temp=temp->next;
     }
+    return temp;
+}
+
+ListNode* reverse(ListNode* head,int k){
+    ListNode* curr=head;
+    ListNode* prev=NULL;
+    int count=0;
+    while(curr!=NULL && k--){
+        ListNode* nextNode=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=nextNode;
+    }
+    return prev;
+}
+
     ListNode* reverseKGroup(ListNode* head, int k) {
-        if(head==NULL){
-            return head;
-        }
-        if(head->next==NULL){
-            return head;
+        ListNode* curr=head;
+        ListNode* prev=NULL;
+        ListNode* newHead=head;
+        while(curr!=NULL){
+            ListNode* kth=kthNode(curr,k);
+            if(kth==NULL){
+                if(prev){
+                    prev->next=curr;
+                    break;
+                }
+            }
+           ListNode* nextNode=kth->next;
+           kth->next=NULL;
+           ListNode* rev=reverse(curr,k);
+        
+       
+
+ if (!prev) {
+            newHead = rev;
+        } else {
+            prev->next = rev;
         }
 
-        //one case reverse
-        ListNode* prev=NULL;
-        ListNode* curr=head;
-        ListNode* newNode=curr->next;
-        int pos=0;
-        int len = getLength(head);
-        if(len < k) {
-            return head;
+        prev = curr; // after reversal, curr is now tail
+        curr = nextNode;
+
         }
-        while(pos<k){
-            newNode=curr->next;
-            pos++;  
-            curr->next=prev;
-            prev=curr;
-            curr=newNode;
-        }
-        ListNode* recursionans=NULL;
-        if(newNode!=NULL){
-            recursionans=reverseKGroup(newNode,k);
-            head->next=recursionans;
-        }
-        return prev;
+        return newHead;
+      
     }
 };
