@@ -1,28 +1,27 @@
 class Solution {
 public:
-    vector<vector<int>> result;
+vector<vector<int>>ans;
+vector<int>temp;
+    void solve(vector<int>&nums,int i){
+        //
+        int n=nums.size();
+       ans.push_back(temp);
 
-    void solve(vector<int>& nums, int index, vector<int> current, set<vector<int>>& st) {
-        if (index == nums.size()) {
-            st.insert(current);
-            return;
+        for(int idx=i;idx<n;idx++){
+            if(idx>i && nums[idx]==nums[idx-1]){
+                continue;
+            }
+            temp.push_back(nums[idx]);
+            solve(nums, idx + 1);
+            temp.pop_back();
         }
 
-        // Choose the current element
-        current.push_back(nums[index]);
-        solve(nums, index + 1, current, st);
 
-        // Skip the current element
-        current.pop_back();
-        solve(nums, index + 1, current, st);
     }
 
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-        set<vector<int>> st;
-        vector<int>current;
-        sort(nums.begin(), nums.end());  // Sort the input to handle duplicates
-        solve(nums, 0, current, st);          // Start recursion with an empty current subset
-        result.assign(st.begin(), st.end());
-        return result;
+        sort(nums.begin(), nums.end()); // sort first for duplicate handling
+        solve(nums,0);
+        return ans;
     }
 };
