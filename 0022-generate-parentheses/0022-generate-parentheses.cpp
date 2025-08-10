@@ -1,89 +1,37 @@
 class Solution {
 public:
-bool isvalid(string t){
-    //
+bool isValid(string s){
+    int n=s.length();
     int count=0;
-    for(char &ch:t){
+    for(char ch:s){
+      
         if(ch=='('){
             count++;
         }
         else{
-            count--;
-            if(count<0){
+            if(count==0){
                 return false;
             }
+            count--;
         }
     }
     return count==0;
 }
-void solve(int n,vector<string>&ans,string result){
-    //baes case
-    if(result.size()==2*n){
-        if(isvalid(result)){
-            ans.push_back(result);
-
+void generate(int n,string output,vector<string>&ans){
+    //base case
+    if(output.size()==2*n){
+        if(isValid(output)){
+            ans.push_back(output);
         }
         return;
     }
 
-    result.push_back('(');
-    solve(n,ans,result);
-    result.pop_back();
-
-
-    result.push_back(')');
-    solve(n,ans,result);
-    result.pop_back();
-
-
+    generate(n,output+'(',ans);
+    generate(n,output+')',ans);
 }
     vector<string> generateParenthesis(int n) {
         vector<string>ans;
-        string result="";
-        solve(n,ans,result);
+        generate(n,"",ans);
         return ans;
-
-    }
-};
-
-
-
-//appraoch 2 withour valid function use 
-class Solution {
-public:
-//approach 2
-void solve(int n,vector<string>&ans,string result,int open,int close){
-    //baes case
-    if(result.size()==2*n){
-       
-            ans.push_back(result);
-
-        return;
-    }
-
-    if(open<n){
-
-        result.push_back('(');
-        solve(n,ans,result,open+1,close);
-        result.pop_back();
-    }
-
-
-    if(close<open){
-
-        result.push_back(')');
-        solve(n,ans,result,open,close+1);
-        result.pop_back();
-    }
-
-
-}
-    vector<string> generateParenthesis(int n) {
-        vector<string>ans;
-        string result="";
-        int open,close=0;
-        solve(n,ans,result,0,0);
-        return ans;
-
     }
 };
