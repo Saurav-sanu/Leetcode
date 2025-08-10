@@ -1,37 +1,25 @@
 class Solution {
 public:
-bool isValid(string s){
-    int n=s.length();
-    int count=0;
-    for(char ch:s){
-      
-        if(ch=='('){
-            count++;
-        }
-        else{
-            if(count==0){
-                return false;
-            }
-            count--;
-        }
-    }
-    return count==0;
-}
-void generate(int n,string output,vector<string>&ans){
+
+void generate(int n,string output,vector<string>&ans,int open,int close){
     //base case
     if(output.size()==2*n){
-        if(isValid(output)){
-            ans.push_back(output);
-        }
+        ans.push_back(output);
         return;
     }
 
-    generate(n,output+'(',ans);
-    generate(n,output+')',ans);
+    if(open<n){
+        generate(n,output+'(',ans,open+1,close);
+    }
+    if(close<open){
+        generate(n,output+')',ans,open,close+1);
+    }
+
+    
 }
     vector<string> generateParenthesis(int n) {
         vector<string>ans;
-        generate(n,"",ans);
+        generate(n,"",ans,0,0);
         return ans;
     }
 };
