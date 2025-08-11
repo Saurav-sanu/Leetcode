@@ -1,41 +1,33 @@
 class Solution {
 public:
 vector<vector<int>>result;
-void solve(int k,int n,vector<int>&temp,int index){
+vector<int>curr;
+void solve(int k,int n,int sum,int index){
     //base case
-    if(k==0 && n==0){
-        result.push_back(temp);
+    if(k==0){
+        if(sum==n){
+            result.push_back(curr);
+        }
         return;
     }
-
     if(index>9){
-        return;
+        return ;
     }
     if(k<0){
         return ;
     }
 
-// both should wrong fine
 
+    //
+   for(int i=index;i<=9;i++){
+    curr.push_back(i);
+    solve(k-1,n,sum+i,i+1);
+    curr.pop_back();
 
-    // temp.push_back(index);
-    // solve(k-1,n-index,temp,index+1);
-    // temp.pop_back();
-    // solve(k,n,temp,index+1);
-
-
-    //dusra 
-
-    for(int i=index;i<=9;i++){
-        temp.push_back(i);
-        solve(k-1,n-i,temp,i+1);
-        temp.pop_back();
-    }
-
+   }
 }
     vector<vector<int>> combinationSum3(int k, int n) {
-        vector<int>temp;
-        solve(k,n,temp,1);
+        solve(k,n,0,1);
         return result;
     }
 };
