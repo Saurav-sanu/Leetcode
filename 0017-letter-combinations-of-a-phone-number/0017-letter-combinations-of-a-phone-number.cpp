@@ -2,7 +2,7 @@ class Solution {
 public:
 vector<string>result;
 
-    void solve(unordered_map<char,string>&mp,string digits,int idx,string temp){
+    void solve(unordered_map<char,string>&mp,string digits,int idx,string &temp){
         //base case
         if(idx==digits.length()){
             result.push_back(temp);
