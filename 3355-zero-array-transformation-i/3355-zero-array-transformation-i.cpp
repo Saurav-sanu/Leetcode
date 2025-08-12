@@ -16,9 +16,16 @@ public:
             }
         }
         vector<int>cumalative(n,0);
-        cumalative[0]=diff[0];
-        for(int i=1;i<n;i++){
-            cumalative[i]=diff[i]+cumalative[i-1];
+
+        // cumalative[0]=diff[0];
+        // for(int i=1;i<n;i++){
+        //     cumalative[i]=diff[i]+cumalative[i-1];
+        // }
+
+        int curr=0;
+        for(int i=0;i<n;i++){
+            curr+=diff[i];
+            cumalative[i]=curr;
         }
 
         for(int i=0;i<n;i++){
