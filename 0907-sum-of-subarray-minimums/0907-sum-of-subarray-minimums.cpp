@@ -24,7 +24,7 @@ vector<int>NSR(vector<int>&arr){
         while(!st.empty() && arr[st.top()] >= arr[i]){
             st.pop();
         }
-        if(!st.empty()){
+        if(!st.empty() ){
             ans[i]=st.top();
         }
         st.push(i);
