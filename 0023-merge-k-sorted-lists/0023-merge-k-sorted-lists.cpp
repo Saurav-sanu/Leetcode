@@ -10,46 +10,44 @@
  */
 class Solution {
 public:
-ListNode* mergetwolist(ListNode* list1,ListNode*list2){
-    if(list1==NULL){
-        return list2;
+class comparator{
+    public:
+    bool operator()(ListNode* a,ListNode* b){
+        return a->val>b->val;
     }
-    if(list2==NULL){
-        return list1;
-    }
-    
-    if(list1->val<=list2->val){
-        list1->next=mergetwolist(list1->next,list2);
-        return list1;
-    }
-    else{
-        list2->next=mergetwolist(list1,list2->next);
-        return list2;
-
-    }
-}
-ListNode* partition(int s,int e,vector<ListNode*>& lists){
-    if(s>e){
-        return NULL;
-    }
-   if(s==e){
-    return lists[s];
-   }
-
-   int mid=s+(e-s)/2;
-
-   ListNode *L=partition(s,mid,lists);
-   ListNode *H=partition(mid+1,e,lists);
-
-    return mergetwolist(L,H);
-
-
-}
+};
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        int start=0;
-        int n=lists.size();
-        int end=n-1;
+        priority_queue<ListNode*,vector<ListNode*>,comparator>pq;
+        for(int i=0;i<lists.size();i++){
+            ListNode* head=lists[i];
+            if(head!=NULL){
+                pq.push(head);
+            }
+        }
 
-        return partition(start,end,lists);
+        ListNode* head=NULL;
+        ListNode* tail=NULL;
+
+        while(!pq.empty()){
+            ListNode* topNode=pq.top();
+            pq.pop();
+            if(head==NULL){
+                head=topNode;
+                tail=topNode;
+                if(tail->next!=NULL){
+                    pq.push(tail->next);
+                }
+            }
+            else{
+
+            tail->next=topNode;
+            tail=topNode;
+             if(tail->next!=NULL){
+                pq.push(tail->next);
+            }
+            }
+        }
+        return head;
+
     }
 };
