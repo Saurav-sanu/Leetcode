@@ -14,9 +14,9 @@ public:
         }
 
         //12345 k=3
-        while(ans.length()>0 && k--){
+        while(ans.length()>0 && k>0){
             ans.pop_back();
-
+            k--;
         }
         if(ans==""){
             return "0";
