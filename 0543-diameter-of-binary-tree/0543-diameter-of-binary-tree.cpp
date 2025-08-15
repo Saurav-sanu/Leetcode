@@ -12,17 +12,14 @@
 class Solution {
 public:
 int solve(TreeNode* root,int &result){
-    //base case
     if(root==NULL){
         return 0;
     }
 
     int left=solve(root->left,result);
     int right=solve(root->right,result);
-    result=max(result,(left+right));
-
-    return max(left,right)+1;
-
+    result=max(result,left+right);
+    return 1+max(left,right);
 }
     int diameterOfBinaryTree(TreeNode* root) {
         int result=INT_MIN;
