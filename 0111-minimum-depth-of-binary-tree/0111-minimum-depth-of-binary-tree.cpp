@@ -11,19 +11,36 @@
  */
 class Solution {
 public:
-int solve(TreeNode* root){
-    if(root==NULL){
-        return 0;
-    }
-    if(root->left==NULL && root->right==NULL){
-        return 1;
-    }
-    int left=root->left?solve(root->left):INT_MAX;
-    int right=root->right?solve(root->right):INT_MAX;
-    return 1+min(left,right);
-    
-}
+
     int minDepth(TreeNode* root) {
-        return solve(root);
+        if(root==NULL){
+            return 0;
+        }
+        queue<TreeNode*>q;
+        int depth=1;
+        q.push(root);
+
+        while(!q.empty()){
+            auto size=q.size();
+
+            while(size--){
+                auto front=q.front();
+                q.pop();
+                if(front->left==NULL && front->right==NULL){
+                    return depth;
+                }
+
+                if(front->left){
+                    q.push(front->left);
+                }
+                if (front->right){
+                    q.push(front->right);
+
+                }
+            }
+            depth++;
+        }
+        return depth;
+
     }
 };
