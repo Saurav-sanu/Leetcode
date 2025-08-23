@@ -11,34 +11,32 @@
  */
 class Solution {
 public:
-vector<int>ans;
     vector<int> inorderTraversal(TreeNode* root) {
-        if(root==NULL){
-            return ans;
-        }
-        stack<TreeNode*>st;
-        // st.push(root);
-        TreeNode* node=root;
+        //morris traversal
+        vector<int>result;
 
-        while(true){
+        TreeNode* curr=root;
 
-            if(node!=NULL){
-                st.push(node);
-                node=node->left;
-
+        while(curr){
+            if(curr->left==NULL){
+                result.push_back(curr->val);
+                curr=curr->right;
             }
             else{
+                TreeNode* temp=curr->left;
+                while(temp->right){
+                    temp=temp->right;
 
-                if(st.empty())break;
-                
-                node=st.top();
-                st.pop();
-                ans.push_back(node->val);
-                node=node->right;
+                }
+                temp->right=curr;
+
+                TreeNode* node=curr;
+                curr=curr->left;
+                node->left=NULL;
+
 
             }
         }
-        return ans;
-
+        return result;
     }
 };
