@@ -12,35 +12,22 @@
 class Solution {
 public:
 int ans=-1;
-
-int count=0;
-void traversal(TreeNode* root,int k){
+void solve(TreeNode* root,int &k){
     //base case
     if(root==NULL){
-        return ;
-    }
-    if(ans!=-1){
-        return ;
+        return;
     }
 
-    if(root->left){
-
-        traversal(root->left,k);
+    solve(root->left,k);
+    k--;
+    if(k==0){
+        ans=root->val;
+        return;
     }
-    count++;
-        if (count == k) {
-            ans = root->val;
-            return;
-        }
-    if(root->right){
-
-        traversal(root->right,k);
-    }
-
+    solve(root->right,k);
 }
     int kthSmallest(TreeNode* root, int k) {
-        traversal(root,k);
+        solve(root,k);
         return ans;
-       
     }
 };
