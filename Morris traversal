@@ -1,0 +1,38 @@
+//root ke just left mai jao or phir uske right mai jate rho 
+jab right ka right null ho toh usko curr se connect kar do 
+
+//agar left nhi hao toh 
+vector result mai push krdo  or move krdo right mai 
+
+
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        //morris traversal
+        vector<int>result;
+
+        TreeNode* curr=root;
+
+        while(curr){
+            if(curr->left==NULL){
+                result.push_back(curr->val);
+                curr=curr->right;
+            }
+            else{
+                TreeNode* temp=curr->left;
+                while(temp->right){
+                    temp=temp->right;
+
+                }
+                temp->right=curr;
+
+                TreeNode* node=curr;
+                curr=curr->left;
+                node->left=NULL;
+
+
+            }
+        }
+        return result;
+    }
+};
