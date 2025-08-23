@@ -29,23 +29,26 @@ TreeNode* rightMin(TreeNode* root){
         }
 
         if(root->val==key){
-            //case 1
+            //case 1 nothing is present
             if(root->left==NULL && root->right==NULL){
                 delete root;
                 return NULL;
             }
+            // case 2 left present only
             if(root->left!=NULL && root->right==NULL){
                 TreeNode* dummy=root;
                 root=root->left;
                 delete dummy;
                 return root;
             }
+            // case 3 right present only
             else if(root->left==NULL && root->right!=NULL){
                 TreeNode* dummy=root;
                 root=root->right;
                 delete dummy;
                 return root;
             }
+            //case 4 both right and left present
             else{
                 TreeNode* mini=rightMin(root->right);
                 root->val=mini->val;
