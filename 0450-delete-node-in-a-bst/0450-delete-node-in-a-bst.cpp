@@ -11,14 +11,15 @@
  */
 class Solution {
 public:
-TreeNode* rightmin(TreeNode* root){
-    //
+TreeNode* rightMin(TreeNode* root){
     if(root==NULL){
         return NULL;
     }
+
     while(root->left!=NULL){
         root=root->left;
     }
+  
     return root;
 }
     TreeNode* deleteNode(TreeNode* root, int key) {
@@ -26,19 +27,18 @@ TreeNode* rightmin(TreeNode* root){
         if(root==NULL){
             return NULL;
         }
-        //base case
-       if(root->val==key){
-        //case i1
+
+        if(root->val==key){
+            //case 1
             if(root->left==NULL && root->right==NULL){
                 delete root;
                 return NULL;
             }
-            else if(root->left!=NULL && root->right==NULL){
+            if(root->left!=NULL && root->right==NULL){
                 TreeNode* dummy=root;
                 root=root->left;
                 delete dummy;
                 return root;
-
             }
             else if(root->left==NULL && root->right!=NULL){
                 TreeNode* dummy=root;
@@ -47,19 +47,20 @@ TreeNode* rightmin(TreeNode* root){
                 return root;
             }
             else{
-            
-                TreeNode* minright=rightmin(root->right);
-                root->val=minright->val;
-                root->right=deleteNode(root->right,minright->val);
+                TreeNode* mini=rightMin(root->right);
+                root->val=mini->val;
+                root->right=deleteNode(root->right,mini->val);
+
             }
-       }
+        }
         else if(key<root->val){
             root->left=deleteNode(root->left,key);
         }
         else{
+
             root->right=deleteNode(root->right,key);
         }
-    
-    return temp;
+        return temp;
     }
+
 };
