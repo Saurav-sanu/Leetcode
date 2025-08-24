@@ -3,11 +3,13 @@ public:
 void dfs(vector<vector<int>>& adj,int u,vector<bool>&visited){
     visited[u]=true;
 
-    for(auto &v:adj[u]){
-        if(!visited[v] && adj[u][v]==1){
-            dfs(adj,v,visited);
+        int n = adj.size();
+
+        for (int v = 0; v < n; v++) {
+            if (adj[u][v] == 1 && !visited[v]) {
+                dfs(adj, v, visited);
+            }
         }
-    }
 }
     int findCircleNum(vector<vector<int>>& isConnected) {
         int count=0;
