@@ -19,13 +19,14 @@ public:
             if(indegree[i]==0){
                 q.push(i);
                 count++;
+                result.push_back(i);
             }
         }
 
         while(!q.empty()){
             int node=q.front();
             q.pop();
-            result.push_back(node);
+            // result.push_back(node);
 
             for(auto &v:adj[node]){
 
@@ -34,6 +35,7 @@ public:
                 if(indegree[v]==0){
                     q.push(v);
                     count++;
+                    result.push_back(v);
                 }
             }
         }
