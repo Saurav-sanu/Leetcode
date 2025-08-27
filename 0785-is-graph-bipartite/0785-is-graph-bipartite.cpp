@@ -1,36 +1,36 @@
 class Solution {
 public:
-bool dfs(vector<vector<int>>& graph,vector<int>&color,int u ,int currColor){
-    //bsae case
-    color[u]=currColor;
+bool BFS(vector<vector<int>>&graph,vector<int>&Color,int u,int currColor){
+    queue<int>q;
+    q.push(u);
+    Color[u]=currColor;
 
-    for(auto &v:graph[u]){
-        if(color[v]==color[u]){
-            return false;
-        }
-        if(color[v]==-1){
-            int newColor=1-currColor;
-            if(dfs(graph,color,v,newColor)==false){
+    while(!q.empty()){
+        int u=q.front();
+        q.pop();
+
+        for(auto &v:graph[u]){
+            if(Color[v]==Color[u]){
                 return false;
+            }
+            if(Color[v]==-1){
+                Color[v]=1-Color[u];
+                q.push(v);
             }
         }
     }
     return true;
 
+
 }
     bool isBipartite(vector<vector<int>>& graph) {
-        //using dfs
+        //suign BFS
         int n=graph.size();
-        vector<int>color(n,-1);
-        // green - 1
-        
-        // red - 0
-
-        int curr=1;
+        vector<int>Color(n,-1);
 
         for(int i=0;i<n;i++){
-            if(color[i]==-1){
-                if(dfs(graph,color,i,curr)==false){
+            if(Color[i]==-1){
+                if(BFS(graph,Color,i,1)==false){
                     return false;
                 }
             }
