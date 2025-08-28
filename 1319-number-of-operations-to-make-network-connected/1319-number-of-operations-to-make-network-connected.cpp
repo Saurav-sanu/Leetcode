@@ -1,7 +1,7 @@
 class Solution {
 public:
 vector<int>parent;
-vector<int>rankA;
+vector<int>rank;
 
 int find(int x){
     if(x==parent[x]){
@@ -16,39 +16,41 @@ void Union(int x,int y){
     if(x_parent==y_parent){
         return ;
     }
-    if(rankA[x_parent]<rankA[y_parent]){
-        parent[x_parent]=y_parent;
-    }
-    else if(rankA[y_parent]<rankA[x_parent]){
+    if(rank[x_parent]>rank[y_parent]){
         parent[y_parent]=x_parent;
+    }
+    else if(rank[x_parent]<rank[y_parent]){
+        parent[x_parent]=y_parent;
     }
     else{
         parent[y_parent]=x_parent;
-        rankA[x_parent]+=1;
-
+        rank[x_parent]++;
     }
 }
     int makeConnected(int n, vector<vector<int>>& connections) {
+        int m=connections.size();
+        if (m < n - 1) {
+            return -1;
+        }
+
         parent.resize(n);
-        rankA.resize(n,0);
+        rank.resize(n,0);
         for(int i=0;i<n;i++){
             parent[i]=i;
         }
 
-        if(connections.size()<n-1){
-            return -1;
-        }
-        int component=n;
+        int connection=n;
 
         for(auto &vec:connections){
-            if(find(vec[0])!=find(vec[1])){
-                Union(vec[0],vec[1]);
-                component--;
+            int u=vec[0];
+            int v=vec[1];
+
+
+            if(find(u)!=find(v)){
+                Union(u,v);
+                connection--;
             }
         }
-        return component-1;
-
-
-
+        return connection-1;
     }
 };
