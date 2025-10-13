@@ -1,11 +1,11 @@
 class Solution {
 public:
-int reverse(int x){
-    long long ans=0;
+long long reverse(int x){
+    long long ans=0;;
     while(x){
         int digit=x%10;
         ans=ans*10+digit;
-        x=x/10;
+        x/=10;
     }
     return ans;
 }
@@ -13,8 +13,8 @@ int reverse(int x){
         if(x<0){
             return false;
         }
-        int c=reverse(x);
-        if(x==c){
+        long long reversenumber=reverse(x);
+        if(x==reversenumber){
             return true;
         }
         return false;
