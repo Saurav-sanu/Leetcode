@@ -1,12 +1,14 @@
 class Solution {
 public:
-
     int singleNonDuplicate(vector<int>& nums) {
+        int n=nums.size();
         int s=0;
-        int e=nums.size()-1;
+        int e=n-1;
+        bool isEven=false;
+        bool isOdd=false;
+
         while(s<e){
             int mid=s+(e-s)/2;
-            bool isEven;
 
             if((e-mid)%2==0){
                 isEven=true;
@@ -17,7 +19,6 @@ public:
 
             if(nums[mid]==nums[mid+1]){
                 if(isEven){
-                    //right mai hoga
                     s=mid+2;
                 }
                 else{
@@ -32,6 +33,8 @@ public:
                     s=mid+1;
                 }
             }
+
+
         }
         return nums[s];
     }
