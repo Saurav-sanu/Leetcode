@@ -9,10 +9,10 @@ public:
 
             int mid=l+(e-l)/2;
             if(nums[mid]>target){
-                e--;
+                e=mid-1;
             }
             else if(nums[mid]<target){
-                l++;
+                l=start+1;
             }
             else{
                 return mid;
