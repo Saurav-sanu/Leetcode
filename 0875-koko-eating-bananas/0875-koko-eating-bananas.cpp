@@ -8,11 +8,7 @@ bool caneat(vector<int>&piles,int mid,int h){
             count++;
         }
     }
-    if(count<=h){
-        return true;
-    }
-    return false;
-
+    return count<=h;
 }
     int minEatingSpeed(vector<int>& piles, int h) {
         int s=1;
