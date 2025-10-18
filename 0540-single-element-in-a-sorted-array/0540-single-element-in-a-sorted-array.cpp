@@ -36,6 +36,6 @@ public:
 
 
         }
-        return nums[s];
+        return nums[e];
     }
 };
