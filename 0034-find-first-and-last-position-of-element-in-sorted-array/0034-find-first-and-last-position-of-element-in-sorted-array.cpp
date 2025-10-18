@@ -44,6 +44,8 @@ int rightmost(vector<int>& nums, int target){
         int left=leftmost(nums,target);
         int right=rightmost(nums,target);
         vector<int>ans;
+        ans.push_back(left);
+        ans.push_back(right);
         
         return ans;
         
