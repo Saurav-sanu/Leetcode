@@ -7,23 +7,21 @@ public:
 
         int s=0;
         int e=n-1;
-        int mid=s+(e-s)/2;
 
         while(s<=e){
-            int rowIndex=mid/col;
-            int colIndex=mid%col;
-            int currNumber=matrix[rowIndex][colIndex];
+            int mid=s+(e-s)/2;
+            int currRow=mid/col;
+            int currCol=mid%col;
 
-            if(currNumber==target){
+            if(matrix[currRow][currCol]==target){
                 return true;
             }
-            else if(currNumber>target){
+            else if(matrix[currRow][currCol]>target){
                 e=mid-1;
             }
             else{
                 s=mid+1;
             }
-            mid=s+(e-s)/2;
         }
         return false;
     }
