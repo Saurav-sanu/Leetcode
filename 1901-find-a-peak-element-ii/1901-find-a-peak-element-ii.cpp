@@ -1,38 +1,47 @@
 class Solution {
 public:
+int rownumber(vector<vector<int>>& mat,int mid,int rn, int cn){
+    int maxrow = 0;
+    int maxval = mat[0][cn];
+    for (int i = 1; i < rn; i++) {
+        if (mat[i][cn] > maxval) {
+            maxval = mat[i][cn];
+            maxrow = i;
+        }
+    }
+    return maxrow;
+}
     vector<int> findPeakGrid(vector<vector<int>>& mat) {
-        int m=mat.size();
-        int n=mat[0].size();
+        int row=mat.size();
+        int col=mat[0].size();
+        int n=row*col;
+
 
         int s=0;
         int e=n-1;
-      
         while(s<=e){
-            int maxRow=0;
-            int midCol=s+(e-s)/2;
-            for(int row=0;row<m;row++){
-                if(mat[row][midCol]>mat[maxRow][midCol]){
-                    maxRow=row;
-                }
-            }
-            int currElement=mat[maxRow][midCol];
-            int leftElement=midCol==0?-1:mat[maxRow][midCol-1];
-            int rightElement=midCol==n-1?-1:mat[maxRow][midCol+1];
+            int mid=s+(e-s)/2;
+            int rn=mid/col;
+            int cn=mid%col;
 
-            if(currElement>leftElement && currElement>rightElement){
-                return {maxRow,midCol};
+            int rowmax=rownumber(mat,mid,row,cn);
+           int left = (cn-1 >= 0) ? mat[rowmax][cn-1] : -1;
+            int right = (cn+1 < col) ? mat[rowmax][cn+1] : -1;
+
+            int currnumber=mat[rowmax][cn];
+
+            if(currnumber>left && currnumber>right){
+                return {rowmax,cn};
             }
-            else if(currElement<leftElement){
-                e=midCol-1;
+
+            else if(currnumber<right){
+                s=mid+1;
             }
             else{
-                s=midCol+1;
+                e=mid-1;
             }
-
-            
 
         }
         return {-1,-1};
-
     }
 };
