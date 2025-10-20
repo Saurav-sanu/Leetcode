@@ -6,17 +6,20 @@ public:
         for(int i=0;i<s.length();i++){
             char ch=s[i];
             if(ch=='('){
+
                 if(count>0){
-                    ans.push_back('(');
+                    ans+=ch;
                 }
                 count++;
+
             }
             else{
                 count--;
                 if(count>0){
-                    ans.push_back(')');
+                    ans+=ch;
                 }
             }
+           
         }
         return ans;
     }
