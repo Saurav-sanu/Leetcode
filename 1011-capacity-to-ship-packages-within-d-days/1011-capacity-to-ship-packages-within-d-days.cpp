@@ -17,7 +17,7 @@ int canload(vector<int>&nums,int mid){
     int shipWithinDays(vector<int>& weights, int days) {
         int s=*max_element(weights.begin(),weights.end());
        int e=accumulate(weights.begin(),weights.end(),0);
-       int result=e;
+       int result=0;
         while(s<=e){
             int mid=s+(e-s)/2;
 
