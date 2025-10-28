@@ -1,16 +1,13 @@
 class Solution {
 public:
-bool ispalindrome(int i,int j,string s){
-    if(s[i]!=s[j]){
-        return false;
-
+    bool ispalindrome(int i, int j, string &s) {
+        while(i < j) {
+            if(s[i] != s[j]) return false;
+            i++;
+            j--;
+        }
+        return true;
     }
-    else{
-        i++;
-        j--;
-    }
-    return true;
-}
     string longestPalindrome(string s) {
         string result="";
         int maxi=0;
