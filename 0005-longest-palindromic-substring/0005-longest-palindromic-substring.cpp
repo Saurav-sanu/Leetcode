@@ -1,27 +1,27 @@
 class Solution {
 public:
-bool ispalindrome(string &str,int i,int j){
-    while(i<j){
-        if(str[i]==str[j]){
-            i++;
-            j--;
-        }
-        else{
-            return false;
-        }
+bool ispalindrome(int i,int j,string s){
+    if(s[i]!=s[j]){
+        return false;
+
+    }
+    else{
+        i++;
+        j--;
     }
     return true;
 }
     string longestPalindrome(string s) {
-        string ans="";
+        string result="";
+        int maxi=0;
         for(int i=0;i<s.length();i++){
             for(int j=i;j<s.length();j++){
-                if(ispalindrome(s,i,j)){
+                if(ispalindrome(i,j,s)){
                     string t=s.substr(i,j-i+1);
-                    ans=t.size()>ans.size()?t:ans;
+                    result=t.length()>result.length()?t:result;
                 }
             }
         }
-        return ans;
+        return result;
     }
 };
