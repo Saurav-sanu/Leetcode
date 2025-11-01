@@ -10,7 +10,8 @@
  */
 class Solution {
 public:
-ListNode* solve(ListNode* list1,ListNode*list2){
+ListNode* solve(ListNode* list1, ListNode* list2){
+    //base case
     if(list1==NULL){
         return list2;
     }
@@ -18,16 +19,18 @@ ListNode* solve(ListNode* list1,ListNode*list2){
         return list1;
     }
 
+    ListNode* result;
 
-    if(list1->val<=list2->val){
-        list1->next=solve(list1->next,list2);
-        return list1;
+    if(list1->val<list2->val){
+        result=list1;
+        result->next=solve(list1->next,list2);
     }
     else{
-        list2->next=solve(list1,list2->next);
-        return list2;
-
+        result=list2;
+        result->next=solve(list1,list2->next);
     }
+
+    return result;
 }
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
         return solve(list1,list2);
