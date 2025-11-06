@@ -11,44 +11,46 @@
 class Solution {
 public:
 int len(ListNode* head){
-    ListNode* temp=head;
     int count=0;
+    ListNode* temp=head;
     while(temp){
-        count++;
         temp=temp->next;
+        count++;
     }
     return count;
 }
-ListNode* kth(ListNode* head,int k){
-    ListNode* temp=head;
-    while(temp!=NULL && --k){
-        temp=temp->next;
-    }
-    return temp;
-}
-    ListNode* rotateRight(ListNode* head, int k) {
-          if (!head || !head->next || k == 0) return head;
 
-        int l = len(head);
-        k = k % l;
+
+    ListNode* rotateRight(ListNode* head, int k) {
+        if(head==NULL || head->next==NULL || k==0){
+            return head;
+        }
+
+        int length=len(head);
+        k=k%length;
         if (k == 0) return head;
 
-       ListNode* curr = head;
-        ListNode* newhead = head;
-        ListNode* nextNode = NULL;
+        ListNode* newTail=head;
 
-        ListNode* ki = kth(head, l-k);
-        nextNode = ki->next;
-        ki->next = NULL;
-
-        // Find last node of second part
-        ListNode* temp = nextNode;
-        while (temp->next) {
-            temp = temp->next;
+        for(int i=1;i<length-k;i++){
+            newTail=newTail->next;
         }
-        temp->next = newhead;
 
-        return nextNode;
+        ListNode* newHead=newTail->next;
+
+        newTail->next=NULL;
+
+        ListNode* tail=newHead;
+
+        while(tail && tail->next){
+            tail=tail->next;
+        }
+
+        tail->next=head;
+
+
+        return newHead;
+
+
     }
-    
 };
