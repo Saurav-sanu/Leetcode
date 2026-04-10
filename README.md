@@ -5,6 +5,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0001-two-sum](https://github.com/Saurav-sanu/Leetcode/tree/main/0001-two-sum/) | Easy |
+| [0053-maximum-subarray](https://github.com/Saurav-sanu/Leetcode/tree/main/0053-maximum-subarray/) | Medium |
 | [0966-binary-subarrays-with-sum](https://github.com/Saurav-sanu/Leetcode/tree/master/0966-binary-subarrays-with-sum) |
 ## Hash Table
 | Problem Name | Difficulty |
@@ -19,4 +20,12 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0966-binary-subarrays-with-sum](https://github.com/Saurav-sanu/Leetcode/tree/master/0966-binary-subarrays-with-sum) |
+## Divide and Conquer
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [0053-maximum-subarray](https://github.com/Saurav-sanu/Leetcode/tree/main/0053-maximum-subarray/) | Medium |
+## Dynamic Programming
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [0053-maximum-subarray](https://github.com/Saurav-sanu/Leetcode/tree/main/0053-maximum-subarray/) | Medium |
 <!---LeetCode Topics End-->
